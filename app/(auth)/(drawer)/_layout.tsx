@@ -152,7 +152,10 @@ export const CustomDrawerContent = (props: any) => {
 const Layout = () => {
   const navigation = useNavigation();
   const dimensions = useWindowDimensions();
-  const { user } = useRevenueCat();
+  // const { user } = useRevenueCat();
+  const user = {
+    dalle: false
+  }
   const router = useRouter();
 
   return (

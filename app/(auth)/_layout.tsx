@@ -11,7 +11,7 @@ const Layout = () => {
   const router = useRouter();
 
   return (
-    <RevenueCatProvider>
+    // <RevenueCatProvider>
       <SQLiteProvider databaseName="chat.db" onInit={migrateDbIfNeeded}>
         <Stack
           screenOptions={{
@@ -69,7 +69,7 @@ const Layout = () => {
           />
         </Stack>
       </SQLiteProvider>
-    </RevenueCatProvider>
+    // </RevenueCatProvider>
   );
 };
 

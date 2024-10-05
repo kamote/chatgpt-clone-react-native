@@ -1,6 +1,7 @@
+import { useSignIn } from '@/auth';
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
-import { useSignIn, useSignUp } from '@clerk/clerk-expo';
+// import { useSignIn, useSignUp } from '@clerk/clerk-expo';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import {
@@ -18,8 +19,8 @@ import {
 
 const Login = () => {
   const { type } = useLocalSearchParams<{ type: string }>();
-  const { signIn, setActive, isLoaded } = useSignIn();
-  const { signUp, isLoaded: signUpLoaded, setActive: signupSetActive } = useSignUp();
+  const {isLoaded } = useSignIn();
+  // const { signUp, isLoaded: signUpLoaded, setActive: signupSetActive } = useSignUp();
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
@@ -31,13 +32,13 @@ const Login = () => {
     }
     setLoading(true);
     try {
-      const completeSignIn = await signIn.create({
-        identifier: emailAddress,
-        password,
-      });
+      // const completeSignIn = await signIn.create({
+      //   identifier: emailAddress,
+      //   password,
+      // });
 
       // This indicates the user is signed in
-      await setActive({ session: completeSignIn.createdSessionId });
+      // await setActive({ session: completeSignIn.createdSessionId });
     } catch (err: any) {
       Alert.alert(err.errors[0].message);
     } finally {
@@ -46,25 +47,25 @@ const Login = () => {
   };
 
   const onSignUpPress = async () => {
-    if (!signUpLoaded) {
-      return;
-    }
-    setLoading(true);
+    // if (!signUpLoaded) {
+    //   return;
+    // }
+    // setLoading(true);
 
-    try {
-      // Create the user on Clerk
-      const result = await signUp.create({
-        emailAddress,
-        password,
-      });
+    // try {
+    //   // Create the user on Clerk
+    //   const result = await signUp.create({
+    //     emailAddress,
+    //     password,
+    //   });
 
-      // This indicates the user is signed in
-      signupSetActive({ session: result.createdSessionId });
-    } catch (err: any) {
-      alert(err.errors[0].message);
-    } finally {
-      setLoading(false);
-    }
+    //   // This indicates the user is signed in
+    //   signupSetActive({ session: result.createdSessionId });
+    // } catch (err: any) {
+    //   alert(err.errors[0].message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

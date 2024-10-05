@@ -1,14 +1,14 @@
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
-import { keyStorage } from '@/utils/Storage';
+// import { keyStorage } from '@/utils/Storage';
 import { useAuth } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Button } from 'react-native';
-import { useMMKVString } from 'react-native-mmkv';
 const Page = () => {
-  const [key, setKey] = useMMKVString('apikey', keyStorage);
-  const [organization, setOrganization] = useMMKVString('org', keyStorage);
+  // const [key, setKey] = useMMKVString('apikey', keyStorage);
+  const [key, setKey] = useState('');
+  // const [organization, setOrganization] = useMMKVString('org', keyStorage);
 
   const [apiKey, setApiKey] = useState('');
   const [org, setOrg] = useState('');
@@ -17,8 +17,8 @@ const Page = () => {
   const { signOut } = useAuth();
 
   const saveApiKey = async () => {
-    setKey(apiKey);
-    setOrganization(org);
+    // setKey(apiKey);
+    // setOrganization(org);
     router.navigate('/(auth)/(drawer)');
   };
 

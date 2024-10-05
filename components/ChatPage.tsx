@@ -1,11 +1,9 @@
 import HeaderDropDown from '@/components/HeaderDropDown';
 import MessageInput from '@/components/MessageInput';
 import { defaultStyles } from '@/constants/Styles';
-import { keyStorage, storage } from '@/utils/Storage';
 import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import { useMMKVString } from 'react-native-mmkv';
 import OpenAI from 'react-native-openai';
 import { FlashList } from '@shopify/flash-list';
 import ChatMessage from '@/components/ChatMessage';
@@ -15,10 +13,10 @@ import { addChat, addMessage, getMessages } from '@/utils/Database';
 import { useSQLiteContext } from 'expo-sqlite/next';
 
 const ChatPage = () => {
-  const [gptVersion, setGptVersion] = useMMKVString('gptVersion', storage);
+  const [gptVersion, setGptVersion] = useState('gptVersion');
   const [height, setHeight] = useState(0);
-  const [key, setKey] = useMMKVString('apikey', keyStorage);
-  const [organization, setOrganization] = useMMKVString('org', keyStorage);
+  const [key, setKey] = useState('apikey');
+  const [organization, setOrganization] = useState('org');
   const [messages, setMessages] = useState<Message[]>([]);
   const db = useSQLiteContext();
   let { id } = useLocalSearchParams<{ id: string }>();

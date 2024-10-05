@@ -26,8 +26,8 @@ const content = [
   },
   {
     title: "Let's discover.",
-    bg: Colors.orange,
-    fontColor: Colors.blue,
+    bg: Colors.green,
+    fontColor: Colors.pink,
   },
   {
     title: "Let's go.",
@@ -35,9 +35,9 @@ const content = [
     fontColor: Colors.yellow,
   },
   {
-    title: 'ChatGPT.',
-    bg: Colors.green,
-    fontColor: Colors.pink,
+    title: 'Aitrium.',
+    bg: Colors.orange,
+    fontColor: Colors.blue,
   },
 ];
 
