@@ -24,7 +24,6 @@ const Page = () => {
 
   const removeApiKey = async () => {
     setKey('');
-    setOrganization('');
   };
 
   return (

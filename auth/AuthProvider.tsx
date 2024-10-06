@@ -3,6 +3,7 @@ import { AuthContext } from './AuthContext';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { AuthContextType, UserInfo } from './types';
+import { ICredentials, login } from '@/api/auth';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -25,9 +26,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const mutation = useMutation({
-    mutationFn: (credentials) => {
-      // return axios.post('/todos', newTodo)
-      return axios.post<SignInResponse>('https://example.com/api/signin', credentials);
+    mutationFn: (credentials:ICredentials) => {
+      return login(credentials)
     },
     onSuccess: (data:any) => {
       // Assuming the response contains the user token and user info
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // This will be used to trigger the sign-in process
   const signIn = (username: string, password: string) => {
-    mutation.mutate({ username, password });
+    mutation.mutate({ email: username, password });
   };
 
   const signOut = () => {

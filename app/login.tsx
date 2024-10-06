@@ -32,10 +32,7 @@ const Login = () => {
     }
     setLoading(true);
     try {
-      const completeSignIn = await signIn({
-        identifier: emailAddress,
-        password,
-      });
+      const completeSignIn = await signIn(emailAddress, password);
 
       console.log('completeSignIn', completeSignIn)
 
