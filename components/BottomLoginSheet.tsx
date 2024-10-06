@@ -6,13 +6,24 @@ import * as WebBrowser from 'expo-web-browser';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useEffect } from 'react';
 const BottomLoginSheet = () => {
   const { bottom } = useSafeAreaInsets();
   const authHandler = async () => {
     // Create a redirect URL for your app to handle after login
-    const redirectUrl = Linking.createURL('');
+    // const redirectUrl = Linking.createURL(""); // The URL to redirect after auth is complete
+    const redirectUrl = "https://www.iana.org/help/example-domains"
+    // const redirectUrl = AuthSession.getRedirectUrl('help/example-domains')
+    // const redirectUrl = AuthSession.makeRedirectUri({
+    //   scheme: 'scheme2',
+    //   preferLocalhost: true,
+    //   isTripleSlashed: true,
+    // });
+
     const authUrl = 'https://example.com/login'; // Replace with your auth provider's login URL
-    
+
+
+    console.log('redirectUrl', redirectUrl)
     // Start the auth session
     const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUrl);
 
@@ -36,6 +47,21 @@ const BottomLoginSheet = () => {
       console.log('Login cancelled or failed');
     }
   };
+
+  useEffect(() => {
+    const handleUrl = (event: any) => {
+      console.log("URL changed:", event.url);
+      // Perform actions based on the URL, such as navigation or state updates
+    };
+
+    // Add event listener to monitor for URL changes
+    const subscription = Linking.addEventListener('url', handleUrl);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>

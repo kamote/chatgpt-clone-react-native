@@ -1,4 +1,4 @@
-import { useSignIn } from '@/auth';
+import { useAuth } from '@/auth';
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 // import { useSignIn, useSignUp } from '@clerk/clerk-expo';
@@ -18,8 +18,8 @@ import {
 } from 'react-native';
 
 const Login = () => {
+  const { isLoaded, signIn } = useAuth();
   const { type } = useLocalSearchParams<{ type: string }>();
-  const {isLoaded } = useSignIn();
   // const { signUp, isLoaded: signUpLoaded, setActive: signupSetActive } = useSignUp();
 
   const [emailAddress, setEmailAddress] = useState('');
@@ -32,10 +32,12 @@ const Login = () => {
     }
     setLoading(true);
     try {
-      // const completeSignIn = await signIn.create({
-      //   identifier: emailAddress,
-      //   password,
-      // });
+      const completeSignIn = await signIn({
+        identifier: emailAddress,
+        password,
+      });
+
+      console.log('completeSignIn', completeSignIn)
 
       // This indicates the user is signed in
       // await setActive({ session: completeSignIn.createdSessionId });

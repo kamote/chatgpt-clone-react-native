@@ -6,9 +6,18 @@ import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useAuth } from '@/auth';
+import { AuthProvider, useAuth } from '@/auth';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      onError: (error) => {
+        console.error('Mutation failed', error);
+      },
+    },
+  },
+});
 // Cache the Clerk JWT
 const tokenCache = {
   async getToken(key: string) {
@@ -95,11 +104,13 @@ const InitialLayout = () => {
 
 const RootLayoutNav = () => {
   return (
-    // <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
+    <QueryClientProvider client={queryClient}>
+    <AuthProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <InitialLayout />
       </GestureHandlerRootView>
-    // </ClerkProvider>
+    </AuthProvider>
+    </QueryClientProvider>
   );
 };
 
